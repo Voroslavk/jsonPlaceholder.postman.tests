@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "a05c95af-05ee-49a8-bc5f-efff72f487fd",
+		"name": "NASA API's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12739760",
+		"_collection_link": "https://course-api-0452.postman.co/workspace/API-basic~14621e51-e41e-4c80-bc78-ddd46debf6ef/collection/12739760-a05c95af-05ee-49a8-bc5f-efff72f487fd?action=share&source=collection_link&creator=12739760"
+	},
+	"item": [
+		{
+			"name": "apod",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')",
+							"})",
+							"pm.test('body \"media_type\" is \"image\"', function () {",
+							"    pm.expect(pm.response.json().media_type).to.eql('image')",
+							" })"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')",
+							"})",
+							"pm.test('body \"date\" is \"2005-06-14\"', function () {",
+							"    pm.expect(pm.response.json().date).to.eql('2005-06-14')",
+							" })"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod?date=2005-06-14",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2005-06-14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start_date/end_date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')",
+							"})",
+							"pm.test('response has correct dates', function () {",
+							"    const response = pm.response.json();",
+							"    const dates = response.map(obj => obj.date);",
+							"    pm.expect(dates).to.include('2025-07-25');",
+							"    pm.expect(dates).to.include('2025-07-30');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod?start_date=2025-07-25&end_date=2025-07-30",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2025-07-25"
+						},
+						{
+							"key": "end_date",
+							"value": "2025-07-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "count",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});",
+							"pm.test('body \"media_type\" is \"image\"', function () {",
+							"    pm.expect(pm.response.json()[0].media_type).to.eql('image')",
+							" })",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod?count=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "thumbs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')",
+							"})",
+							"pm.test('body \"media_type\" is \"image\"', function () {",
+							"    pm.expect(pm.response.json().media_type).to.eql('image')",
+							" })"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod?thumbs=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					],
+					"query": [
+						{
+							"key": "thumbs",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wrong range request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', function () {",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"pm.test('Content-Type is application/json', function () { ",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')",
+							"})",
+							"pm.test('Response has a msg', function () {",
+							"    pm.expect(pm.response.json().msg).to.eql('day is out of range for month')",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/planetary/apod?start_date=2025-06-01&end_date=2025-06-31",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"planetary",
+						"apod"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2025-06-01"
+						},
+						{
+							"key": "end_date",
+							"value": "2025-06-31"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api_key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "JzaeM8dMrWZzUG3ZdpLQa2epUNbO13aSFosayUY4",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
